@@ -104,4 +104,28 @@ def main():
             st.json(headers)
 
             # Images
-            st.
+            st.subheader("🖼️ Images")
+            images_info = get_images_info(soup)
+            for img in images_info:
+                st.write(f"**Source :** {img['src']}, **Alt :** {img['alt']}")
+
+            # Liens internes et externes
+            st.subheader("🔗 Liens Internes et Externes")
+            internal_links, external_links = get_links(soup, url)
+            st.write(f"**Liens internes ({len(internal_links)}) :**")
+            for link in internal_links:
+                st.write(link)
+            st.write(f"**Liens externes ({len(external_links)}) :**")
+            for link in external_links:
+                st.write(link)
+
+            # Vérification robots.txt
+            st.subheader("🤖 Fichier robots.txt")
+            robots_content = check_robots_txt(url)
+            st.text(robots_content)
+
+            st.success("Analyse terminée !")
+
+# Exécution de l'application Streamlit
+if __name__ == "__main__":
+    main()
